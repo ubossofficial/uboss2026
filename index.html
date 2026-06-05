@@ -26,7 +26,21 @@
         .site-header { background-color: rgba(11, 19, 30, 0.95); border-bottom: 1px solid rgba(0, 229, 255, 0.1); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; backdrop-filter: blur(10px); }
         .header-container { max-width: 1400px; margin: 0 auto; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; }
         .header-left { display: flex; align-items: center; gap: 40px; }
-        .logo { font-size: 28px; font-weight: 900; color: var(--color-text-white); letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0, 229, 255, 0.3); cursor: pointer; }
+.logo { 
+            display: flex; 
+            align-items: center; 
+            text-decoration: none;
+        }
+        .logo img {
+            height: 45px; /* Chiều cao tối đa của logo, bạn có thể tăng giảm tùy ý */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        .logo img:hover {
+            transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi di chuột vào */
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.5)); /* Hiệu ứng tỏa sáng nhẹ */
+        }
         .main-nav ul { display: flex; list-style: none; gap: 25px; }
         .main-nav a { color: var(--color-text-desc); text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; transition: color 0.3s ease; }
         .main-nav a:hover { color: var(--color-accent-neon); }
@@ -279,7 +293,8 @@
         <div class="header-container">
             <div class="header-left">
                 <button class="menu-toggle" id="mobile-menu-btn"><span></span><span></span><span></span></button>
-                <div class="logo">UBOSS</div>
+               <a href="#" class="logo">
+    <img src="logo-uboss" alt="UBOSS Logo"> </a>
                 <nav class="main-nav" id="sidebar-menu">
                     <ul>
                         <li><a href="#">About Us</a></li><li><a href="#">Giấy Phép Hoạt Động</a></li><li><a href="#">Chính Sách Bảo Mật</a></li><li><a href="#">Tin Tức</a></li>
