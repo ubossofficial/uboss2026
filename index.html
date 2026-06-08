@@ -99,6 +99,75 @@
         .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 24px; height: 18px; background: transparent; border: none; cursor: pointer; z-index: 1100; }
         .menu-toggle span { width: 100%; height: 2px; background-color: var(--color-accent-neon); transition: all 0.3s ease; }
 
+                /* CSS Nút mxh nổi góc màn hình */
+        .my-social-float {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 20px !important;
+            z-index: 999999 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 15px !important;
+        }
+
+        .social-icon {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 65px !important; 
+            height: 65px !important;
+            background: #ffffff !important;
+            border-radius: 50% !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+            text-decoration: none !important;
+            animation: shake 3s infinite !important;
+            font-size: 35px !important;
+            overflow: hidden;
+        }
+
+        .custom-icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            20% { transform: rotate(-15deg); }
+            40% { transform: rotate(15deg); }
+            60% { transform: rotate(-10deg); }
+            80% { transform: rotate(10deg); }
+        }
+
+        .social-icon:hover {
+            animation: none !important;
+            transform: scale(1.15) !important;
+        }
+
+        .messenger i { color: #0072ff !important; }
+        .telegram i { color: #0088CC !important; }
+
+        .social-media-box { padding: 10px 0; }
+        .social-heading { color: #ffffff !important; font-size: 14px !important; font-weight: 800; text-transform: uppercase; margin-bottom: 20px; }
+        .social-icons-group { display: flex; gap: 15px; }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 18px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .social-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); }
+        .social-btn.facebook { background-color: #3b5998; }
+        .social-btn.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .social-btn.pinterest { background-color: #bd081c; }
+
         /* =========================================
            PHẦN CỐT LÕI (BODY) 
            ========================================= */
@@ -263,6 +332,18 @@
             body { padding-top: 105px; } 
             .ticker-wrapper { margin: 10px 0; padding: 6px 15px; }
             .marquee-text { font-size: 13px; }
+
+             .my-social-float { 
+                bottom: 25px !important; 
+                right: 15px !important; 
+                gap: 12px !important;
+            }
+            
+            .social-icon { 
+                width: 52px !important; 
+                height: 52px !important; 
+                font-size: 26px !important; 
+            }
             
             /* Chia 2 cột đều nhau trên Mobile */
             .grid-5-items { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -491,12 +572,12 @@
             <div class="faq-container">
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>1. Cổng game UBOSS OFFICIAL có uy tín không?</span>
+                        <span>1. Cổng game UBOSS có uy tín không?</span>
                         <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                     </button>
                     <div class="faq-answer">
                         <div class="faq-answer-inner">
-                            UBOSS OFFICIAL hay UBOSS89 là hệ thống sảnh cược giải trí trực tuyến đẳng cấp quốc tế. Chúng tôi vận hành minh bạch dưới sự quản lý và cấp phép hợp pháp của tổ chức <strong>Curaçao eGaming</strong>, bảo hộ thuật toán kết quả ngẫu nhiên sạch 100% bởi <strong>Isle of Man GSC (Vương Quốc Anh)</strong>. Hệ thống cam kết tính sòng phẳng 1:1 và thanh khoản tuyệt đối cho thành viên.
+                            UBOSS là hệ thống sảnh cược giải trí trực tuyến đẳng cấp quốc tế. Chúng tôi vận hành minh bạch dưới sự quản lý và cấp phép hợp pháp của tổ chức <strong>Curaçao eGaming</strong>, bảo hộ thuật toán kết quả ngẫu nhiên sạch 100% bởi <strong>Isle of Man GSC (Vương Quốc Anh)</strong>. Hệ thống cam kết tính sòng phẳng 1:1 và thanh khoản tuyệt đối cho thành viên.
                         </div>
                     </div>
                 </div>
@@ -524,12 +605,12 @@
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>4. UBOSS89 hay UBOSS68 là cổng chính thức của UBOSS?</span>
+                        <span>4. UBOSS227 hay UBOSS68 là cổng chính thức của UBOSS?</span>
                         <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                     </button>
                     <div class="faq-answer">
                         <div class="faq-answer-inner">
-                            Cả UBOSS89 và UBOSS68 đều là các tên miền dự phòng chính thức thuộc hệ thống UBOSS nhằm tối ưu hóa đường truyền mạng. Tuy nhiên, quý khách vui lòng chỉ truy cập thông qua trang chủ duy nhất <strong>UBOSS227.COM</strong> để luôn được tự động chuyển hướng đến link an toàn và không bị chặn.
+                            Cả UBOSS227 và UBOSS68 đều là các tên miền dự phòng chính thức thuộc hệ thống UBOSS nhằm tối ưu hóa đường truyền mạng. Tuy nhiên, quý khách vui lòng chỉ truy cập thông qua trang chủ duy nhất <strong>UBOSS227.COM</strong> để luôn được tự động chuyển hướng đến link an toàn và không bị chặn.
                         </div>
                     </div>
                 </div>
@@ -596,7 +677,7 @@
             <div class="footer-col footer-intro">
                 <p><strong>UBOSS227.COM</strong> là nơi cá cược trực tuyến độc quyền được cấp phép hợp pháp do trung tâm an ninh mạng quốc gia <strong>National Cyber Security Centre</strong> và Isle of Man, Cagayan, và Pagcor cấp phép. Những giấy phép khẳng định sân chơi này an toàn và minh bạch thu hút hơn 10 triệu khách hàng.</p>
                 <ul class="footer-contact-list">
-                    <li><strong>Trụ sở:</strong> <span>508 Đ. Lê Trọng Tấn, Tây Thạnh, Tân Phú, Hồ Chí Minh, Việt Nam</span></li>
+                    <li><strong>Trụ sở:</strong> <span>115 Nguyễn Huệ, phường Bến Nghé, Quận 1</span></li>
                     <li><strong>Số điện thoại:</strong> <span>0905753246</span></li>
                     <li><strong>Giấy phép quốc tế:</strong> <span>Giấy phép tập đoàn giải trí Pagcor (Philippines)</span></li>
                     <li><strong>Giấy chứng nhận:</strong> <span>067829371929 Cấp ngày 30/11/2024</span></li>
@@ -627,6 +708,20 @@
                 Từ khóa tìm kiếm nhanh của UBOSS: uboss - uboss89 - uboss227 - uboss68 - uboss đăng nhập - nhà cái uboss - uboss casino - link vào uboss - tải app uboss - game uboss - uboss club - tại uboss - uboss vip - uboss com - uboss viet nam...
             </div>
         </div>
+        
+        <div class="my-social-float">
+    <a href="https://zalo.me/0934632947" target="_blank" class="social-icon zalo">
+        <img src="https://uboss.ink/wp-content/uploads/2026/05/iconzalo.webp" alt="Zalo Icon" class="custom-icon-img">
+    </a>
+
+    <a href="https://m.me/ubossofficial" target="_blank" class="social-icon messenger">
+        <i class="fa-regular fa-comment-dots"></i>
+    </a>
+
+    <a href="https://t.me/bububu787" target="_blank" class="social-icon telegram">
+        <i class="fa-brands fa-telegram"></i>
+    </a>
+</div>
         <div class="footer-logos">
             <img src="iovation.png" alt="NCSC">
             <img src="icon1.webp" alt="Pagcor">
