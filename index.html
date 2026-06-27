@@ -37,14 +37,14 @@
             text-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
             letter-spacing: 1px;
         }
-
-            /* THAY THẾ BẰNG */
-            .match-grid {
-                display: grid;
-                grid-template-columns: 1fr; /* Luôn là 1 cột trên mobile */
-                gap: 15px;
-                width: 100%;
-            }
+                .match-grid {
+                    display: grid;
+                    grid-template-columns: 1fr; /* Luôn là 1 cột trên mọi thiết bị mặc định */
+                    gap: 15px;
+                    width: 100%;
+                    max-width: 1200px;
+                    margin: 0 auto; /* Căn giữa */
+                }
 
         /* Lớp bọc ngoài chứa viền chạy */
         .ai-card {
@@ -549,8 +549,13 @@
 
 
             .section-title { font-size: 1.3rem; }
-            .match-grid { grid-template-columns: 1fr; }
-            .card-inner { padding: 12px; gap: 10px; }
+                /* Khối này chỉ kích hoạt khi màn hình có độ rộng từ 768px trở lên (Tablet & Desktop) */
+                @media (min-width: 768px) {
+                    .match-grid {
+                        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                    }
+                }
+                            .card-inner { padding: 12px; gap: 10px; }
             .ai-analysis {
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
