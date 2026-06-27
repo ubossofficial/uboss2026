@@ -15,59 +15,52 @@
     <meta name="description" content="UBOSS – Nhà cái trực tuyến hàng đầu 2026, được cấp phép CURACAO. Trải nghiệm casino, thể thao, slot, đá gà và nhận thưởng USDT cực hấp dẫn cho tân thủ.">
     <style>
 
-.ai-worldcup-section { width: 100%; padding: 10px 5px; box-sizing: border-box; overflow: hidden; }
-    .ai-worldcup-section .section-title { 
-        text-align: center; color: #00e5ff; font-size: 1.4rem; font-weight: 900; 
-        text-transform: uppercase; margin-bottom: 20px; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); 
+.ai-worldcup-section { width: 100%; box-sizing: border-box; overflow: hidden; padding: 10px; }
+    
+    /* Tiêu đề */
+    .section-title { text-align: center; color: #00e5ff; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); }
+    
+    /* Nút Telegram duy nhất */
+    .telegram-cta-single { 
+        display: block; width: 90%; max-width: 400px; margin: 10px auto 20px auto;
+        background: linear-gradient(135deg, #0088cc, #00e5ff); padding: 12px; border-radius: 8px; 
+        text-align: center; text-decoration: none; color: #fff; font-weight: 800; text-transform: uppercase; font-size: 0.9rem;
+        box-shadow: 0 4px 10px rgba(0, 229, 255, 0.3);
     }
-    .ai-worldcup-section .match-grid { 
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
-        gap: 10px; width: 100%; max-width: 1200px; margin: 0 auto; 
+
+    /* Khung cuộn ngang */
+    .match-scroll-container { 
+        display: flex; gap: 12px; overflow-x: auto; padding: 10px 5px; 
+        scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
     }
-    .ai-worldcup-section .ai-card { 
-        position: relative; padding: 2px; border-radius: 12px; overflow: hidden; 
+    /* Ẩn thanh cuộn */
+    .match-scroll-container::-webkit-scrollbar { display: none; }
+
+    /* Thẻ trận đấu */
+    .ai-card { 
+        min-width: 280px; scroll-snap-align: start; position: relative; padding: 2px; border-radius: 12px; 
         background: #1e293b; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
-    /* Hiệu ứng viền neon */
-    .ai-worldcup-section .ai-card::before {
-        content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-        background: conic-gradient(transparent, transparent, transparent, #00e5ff);
-        animation: animateBorder 3s linear infinite;
-    }
-    @keyframes animateBorder { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .card-inner { background: #1e293b; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
     
-    .ai-worldcup-section .card-inner { 
-        background: #1e293b; border-radius: 10px; padding: 10px; position: relative; z-index: 1;
-        display: flex; flex-direction: column; gap: 8px;
-    }
-    .ai-worldcup-section .match-header { display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 5px; border-radius: 6px; }
-    .ai-worldcup-section .team { display: flex; flex-direction: column; align-items: center; width: 35%; }
-    .ai-worldcup-section .team img { width: 35px; height: 22px; border-radius: 2px; margin-bottom: 3px; }
-    .ai-worldcup-section .team span { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-    .ai-worldcup-section .score { font-size: 1.1rem; font-weight: 900; color: #00e5ff; display: none; }
-    .ai-worldcup-section .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
-    .ai-worldcup-section .stat-item { background: #0f172a; padding: 5px 2px; border-radius: 4px; text-align: center; }
-    .ai-worldcup-section .label { display: block; font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; }
-    .ai-worldcup-section .value { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    /* Thông tin trận */
+    .match-header { display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 8px; border-radius: 6px; }
+    .team { display: flex; flex-direction: column; align-items: center; width: 35%; }
+    .team img { width: 35px; height: 22px; margin-bottom: 3px; }
+    .team span { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    .score { font-size: 1.2rem; font-weight: 900; color: #00e5ff; display: none; }
     
-    /* Telegram CTA */
-    .ai-worldcup-section .telegram-cta { 
-        background: linear-gradient(135deg, #0088cc, #00e5ff); padding: 8px; border-radius: 6px; 
-        text-align: center; text-decoration: none; display: block; margin: 5px 0;
-    }
-    .ai-worldcup-section .cta-main-text { color: #fff; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
-    .ai-worldcup-section .cta-sub-text { color: #000; background: #fff; font-size: 0.6rem; font-weight: 800; padding: 1px 5px; border-radius: 10px; display: block; margin-top: 3px; }
+    /* Đếm ngược */
+    .timer-box { font-size: 0.8rem; color: #10b981; font-weight: 600; text-align: center; margin-bottom: 5px; }
     
-    /* AI Phân tích */
-    .ai-worldcup-section .ai-analysis { 
-        background: rgba(0,0,0,0.3); border: 1px dashed #00e5ff; padding: 8px; 
-        font-size: 0.7rem; color: #cbd5e1; border-radius: 6px; 
-    }
-    .ai-worldcup-section .ai-title { color: #00e5ff; font-weight: 700; margin-bottom: 3px; text-transform: uppercase; font-size: 0.65rem; }
-
-    /* Màu sắc */
-    .color-thang { color: #00e5ff; } .color-hoa { color: #f59e0b; }
-    .color-tai { color: #ef4444; } .color-xiu { color: #10b981; }
+    /* Stats */
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .stat-item { background: #0f172a; padding: 6px 2px; border-radius: 4px; text-align: center; }
+    .label { display: block; font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; }
+    .value { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+    
+    .ai-analysis { background: rgba(0,0,0,0.3); border: 1px dashed #00e5ff; padding: 8px; font-size: 0.75rem; color: #cbd5e1; border-radius: 6px; margin-top: 5px; }
+    .ai-title { color: #00e5ff; font-weight: 700; margin-bottom: 3px; text-transform: uppercase; font-size: 0.7rem; }
         
         /* =========================================
            HỆ MÀU SẮC CHUNG 
@@ -500,8 +493,9 @@
 <!-- DÁN ĐOẠN NÀY VÀO TRONG THẺ <BODY> NƠI ANH MUỐN HIỂN THỊ -->
 <div class="ai-worldcup-section">
     <h2 class="section-title">⚡ PHÂN TÍCH TRẬN ĐẤU AI MỖI NGÀY ⚡</h2>
-    <div id="ai-app-container" class="match-grid">
-        <p style="text-align:center; color:#00e5ff; padding: 20px;">ĐANG KHỞI TẠO AI...</p>
+    <a href="https://t.me/link_cua_anh" class="telegram-cta-single">✈️ THAM GIA TELEGRAM NHẬN KÈO MIỄN PHÍ</a>
+    <div id="ai-app-container" class="match-scroll-container">
+        <p style="text-align:center; color:#00e5ff; width:100%;">ĐANG KHỞI TẠO DỮ LIỆU...</p>
     </div>
 </div>
         
@@ -807,42 +801,20 @@
 
     <script> 
 
-// 1. CẤU HÌNH
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQj3fhx8ExjF9YQ9W8MYvP5vC2lQeDRwte34vCpUdDezj5FPpS2Zhr1TcIlfKv52mTg8MoG5FNSfV9x/pub?output=csv";
-    const TELE_LINK = "https://t.me/+bZchBFF2xzo1OWNl";
-    let sheetDataArray = [];
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQj3fhx8ExjF9YQ9W8MYvP5vC2lQeDRwte34vCpUdDezj5FPpS2Zhr1TcIlfKv52mTg8MoG5FNSfV9x/pub?output=csv";
 
-    // 2. HÀM ĐỌC CSV
-    function parseCSV(str) {
-        const arr = []; let quote = false; let row = 0, col = 0;
-        for (let c = 0; c < str.length; c++) {
-            let cc = str[c], nc = str[c+1];
-            arr[row] = arr[row] || []; arr[row][col] = arr[row][col] || '';
-            if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
-            if (cc == '"') { quote = !quote; continue; }
-            if (cc == ',' && !quote) { ++col; continue; }
-            if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
-            if (cc == '\n' && !quote) { ++row; col = 0; continue; }
-            if (cc == '\r' && !quote) { ++row; col = 0; continue; }
-            arr[row][col] += cc;
-        }
-        return arr;
-    }
-
-    async function initAI() {
+    async function loadData() {
         try {
-            const response = await fetch(CSV_URL);
-            const text = await response.text();
-            const rows = parseCSV(text.trim());
+            const res = await fetch(CSV_URL);
+            const text = await res.text();
+            const rows = text.trim().split('\n').map(r => r.split(','));
             const headers = rows[0].map(h => h.trim());
-            const data = rows.slice(1).map(row => {
-                let obj = {};
-                row.forEach((val, i) => obj[headers[i]] = val ? val.trim() : "");
+            const data = rows.slice(1).map(r => {
+                let obj = {}; r.forEach((v, i) => obj[headers[i]] = v ? v.trim() : "");
                 return obj;
             });
 
             const container = document.getElementById("ai-app-container");
-            if(!container) return;
             container.innerHTML = "";
 
             data.forEach((match, index) => {
@@ -852,7 +824,7 @@
                 container.innerHTML += `
                     <div class="ai-card">
                         <div class="card-inner">
-                            <div class="timer-box"><span id="timer-${index}">00:00:00</span></div>
+                            <div class="timer-box">TRẬN ĐẤU BẮT ĐẦU SAU:<br><span id="timer-${index}">--:--:--</span></div>
                             <div class="match-header">
                                 <div class="team"><img src="https://flagcdn.com/w40/${match["Mã cờ 1"]?.toLowerCase()}.png"><span>${match["Đội 1"]}</span></div>
                                 <div class="score-board"><div id="vs-${index}">VS</div><div id="score-${index}" class="score">${match["Tỉ số"]}</div></div>
@@ -864,10 +836,6 @@
                                 <div class="stat-item"><span class="label">Tài Xỉu</span><span class="value ${tClass}">${match["Tài Xỉu"]}</span></div>
                                 <div class="stat-item"><span class="label">Tự tin</span><span class="value">${match["Tự tin"]}</span></div>
                             </div>
-                            <a href="${TELE_LINK}" class="telegram-cta">
-                                <span class="cta-main-text">✈️ THAM GIA TELE NHẬN KÈO</span>
-                                <span class="cta-sub-text">BẤM VÀO ĐỂ THAM GIA</span>
-                            </a>
                             <div class="ai-analysis">
                                 <div class="ai-title">⚡ PHÂN TÍCH AI:</div>
                                 <div id="ai-text-${index}">Đang tổng hợp...</div>
@@ -877,51 +845,40 @@
                 `;
             });
 
+            // Timer & Animation logic
+            setInterval(() => {
+                data.forEach((match, i) => {
+                    const timerEl = document.getElementById(`timer-${i}`);
+                    const target = new Date(match["Giờ"]).getTime();
+                    const now = new Date().getTime();
+                    const diff = target - now;
+                    if (diff > 0) {
+                        const h = Math.floor(diff / 3600000);
+                        const m = Math.floor((diff % 3600000) / 60000);
+                        const s = Math.floor((diff % 60000) / 1000);
+                        timerEl.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                    } else {
+                        timerEl.innerText = "ĐANG DIỄN RA";
+                    }
+                });
+            }, 1000);
+
             data.forEach((match, i) => {
                 setTimeout(() => {
-                    const vsEl = document.getElementById(`vs-${i}`);
-                    const scoreEl = document.getElementById(`score-${i}`);
-                    if(vsEl) vsEl.style.display = "none";
-                    if(scoreEl) scoreEl.style.display = "block";
+                    document.getElementById(`vs-${i}`).style.display = "none";
+                    document.getElementById(`score-${i}`).style.display = "block";
                     let el = document.getElementById(`ai-text-${i}`);
                     let str = match["Phân tích AI"] || "";
-                    let char = 0;
-                    el.innerHTML = "";
+                    let char = 0; el.innerHTML = "";
                     let timer = setInterval(() => {
-                        el.innerHTML += str.charAt(char);
-                        char++;
+                        el.innerHTML += str.charAt(char); char++;
                         if (char >= str.length) clearInterval(timer);
                     }, 20);
                 }, 1000 + (i * 500));
             });
-        } catch (e) { console.log(e); }
+        } catch (e) { console.error(e); }
     }
-
-    // 3. CÁC HÀM KHÁC (MENU, SLIDER, FAQ)
-    document.addEventListener("DOMContentLoaded", function() {
-        initAI(); // Chạy AI
-
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const sidebar = document.getElementById('sidebar-menu');
-        menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); sidebar.classList.toggle('active'); });
-
-        const sliderWrapper = document.getElementById('slider-wrapper');
-        const dots = document.querySelectorAll('.dot');
-        let currentSlide = 0; const totalSlides = 4;
-        function updateSlider() { sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`; dots.forEach(dot => dot.classList.remove('active')); dots[currentSlide].classList.add('active'); }
-        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; updateSlider(); }
-        setInterval(nextSlide, 4000);
-
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            item.querySelector('.faq-question').addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                faqItems.forEach(i => { i.classList.remove('active'); i.querySelector('.faq-answer').style.maxHeight = null; });
-                if (!isActive) { item.classList.add('active'); item.querySelector('.faq-answer').style.maxHeight = item.querySelector('.faq-answer').scrollHeight + "px"; }
-            });
-        });
-    });
-
+    loadData();
         
         const menuBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar-menu');
