@@ -20,7 +20,7 @@
     /* Tiêu đề */
     .section-title { text-align: center; color: #00e5ff; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); }
     
-    /* Nút Telegram duy nhất (nằm ngay dưới tiêu đề) */
+    /* Nút Telegram duy nhất */
     .telegram-cta-single { 
         display: block; width: 90%; max-width: 400px; margin: 0 auto 25px auto;
         background: linear-gradient(135deg, #0088cc, #00e5ff); padding: 12px; border-radius: 8px; 
@@ -32,20 +32,21 @@
     /* Khung xếp 1 cột dọc trên Mobile */
     .match-grid { 
         display: grid; 
-        grid-template-columns: 1fr; /* Ép cứng 1 cột dọc từ trên xuống */
+        grid-template-columns: 1fr; /* 1 cột dọc */
         gap: 20px; 
         width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 10px;
     }
 
-    /* Nếu xem trên Máy tính/Tablet thì tự chia nhiều cột cho đỡ trống */
+    /* Máy tính/Tablet tự chia cột */
     @media (min-width: 768px) {
         .match-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
     }
 
-    /* Thẻ trận đấu */
+    /* Thẻ trận đấu - Đã bổ sung overflow: hidden để viền không bị trào ra ngoài */
     .ai-card { 
         position: relative; padding: 2px; border-radius: 12px; 
         background: #1e293b; box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        overflow: hidden; /* <--- DÒNG KHẮC PHỤC LỖI TRÀN VIỀN */
     }
     .ai-card::before {
         content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
@@ -71,19 +72,19 @@
     /* Đếm ngược */
     .timer-box { font-size: 0.85rem; color: #10b981; font-weight: 700; text-align: center; background: rgba(16, 185, 129, 0.1); padding: 8px; border-radius: 6px; letter-spacing: 0.5px;}
     
-    /* Thông số (Chấp, Tài Xỉu...) */
+    /* Thông số */
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-    @media (max-width: 480px) { .stats { grid-template-columns: repeat(2, 1fr); } } /* Điện thoại tự xếp 2 hàng 2 cột cho dễ nhìn */
+    @media (max-width: 480px) { .stats { grid-template-columns: repeat(2, 1fr); } } 
     .stat-item { background: #0f172a; padding: 8px 4px; border-radius: 6px; text-align: center; border: 1px solid #334155; }
     .label { display: block; font-size: 0.65rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px;}
     .value { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
     
+    /* Phân tích AI */
     .ai-analysis { background: rgba(0, 229, 255, 0.05); border: 1px dashed #00e5ff; padding: 12px; font-size: 0.85rem; color: #cbd5e1; border-radius: 6px; line-height: 1.5; min-height: 70px;}
     .ai-title { color: #00e5ff; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; font-size: 0.75rem; }
 
     .color-thang { color: #00e5ff !important; } .color-hoa { color: #f59e0b !important; }
     .color-tai { color: #ef4444 !important; } .color-xiu { color: #10b981 !important; }
-        
         /* =========================================
            HỆ MÀU SẮC CHUNG 
            ========================================= */
@@ -823,11 +824,10 @@
     </footer>
 
     <script> 
-
-// Link CSV của bạn
+    // Link CSV của bạn
     const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQj3fhx8ExjF9YQ9W8MYvP5vC2lQeDRwte34vCpUdDezj5FPpS2Zhr1TcIlfKv52mTg8MoG5FNSfV9x/pub?output=csv";
 
-    // Hàm đọc file CSV an toàn (có hỗ trợ dấu phẩy trong văn bản)
+    // Hàm đọc file CSV an toàn
     function parseCSV(str) {
         const arr = []; let quote = false; let row = 0, col = 0;
         for (let c = 0; c < str.length; c++) {
@@ -842,6 +842,26 @@
             arr[row][col] += cc;
         }
         return arr;
+    }
+
+    // HÀM MỚI: Chỉ lấy Giờ:Phút từ Google Sheet và tự ghép với ngày hiện tại
+    function getTargetTime(timeStr) {
+        if (!timeStr) return null;
+        try {
+            // Cắt chuỗi "04:00" thành giờ và phút
+            let parts = timeStr.trim().split(":");
+            let hours = parseInt(parts[0], 10);
+            let mins = parseInt(parts[1] || 0, 10);
+            
+            if (isNaN(hours) || isNaN(mins)) return null;
+
+            // Lấy thời gian hôm nay và gán đúng Giờ:Phút đó
+            let target = new Date();
+            target.setHours(hours, mins, 0, 0);
+            return target;
+        } catch(e) {
+            return null;
+        }
     }
 
     async function loadData() {
@@ -890,30 +910,43 @@
                 `;
             });
 
-            // Logic đếm ngược thời gian thực (Cập nhật mỗi 1 giây)
+            // Logic đếm ngược dựa trên thời gian thực
             setInterval(() => {
                 data.forEach((match, i) => {
                     const timerEl = document.getElementById(`timer-${i}`);
                     if(!timerEl) return;
 
-                    const target = new Date(match["Giờ"]).getTime();
-                    const now = new Date().getTime();
-                    const diff = target - now;
+                    let targetDate = getTargetTime(match["Giờ"]);
+                    if (!targetDate) {
+                        timerEl.innerText = "SAI GIỜ TRONG SHEET";
+                        timerEl.style.color = "#f59e0b";
+                        return;
+                    }
 
+                    let now = new Date().getTime();
+                    let targetTime = targetDate.getTime();
+                    let diff = targetTime - now;
+
+                    // Nếu trận đấu đã qua hơn 2.5 tiếng (9000000 mili-giây), tự đẩy sang ngày mai
+                    if (diff < -9000000) {
+                        targetDate.setDate(targetDate.getDate() + 1);
+                        targetTime = targetDate.getTime();
+                        diff = targetTime - now;
+                    }
+
+                    // Đếm ngược nếu chưa tới giờ
                     if (diff > 0) {
-                        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / 3600000);
+                        // Tính toán bỏ phần ngày, chỉ hiển thị số Giờ : Phút : Giây
+                        const totalHours = Math.floor(diff / 3600000);
                         const m = Math.floor((diff % 3600000) / 60000);
                         const s = Math.floor((diff % 60000) / 1000);
                         
-                        if (d > 0) {
-                            timerEl.innerText = `${d} NGÀY ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                        } else {
-                            timerEl.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                        }
+                        timerEl.innerText = `${totalHours.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                        timerEl.style.color = "#00e5ff"; 
                     } else {
+                        // Nằm trong khoảng 2.5 tiếng từ lúc bắt đầu -> Đang đá
                         timerEl.innerText = "ĐANG DIỄN RA";
-                        timerEl.style.color = "#ef4444"; // Đổi thành màu đỏ
+                        timerEl.style.color = "#ef4444"; 
                     }
                 });
             }, 1000);
@@ -938,12 +971,11 @@
                             if (char >= str.length) clearInterval(timer);
                         }, 20);
                     }
-                }, 1000 + (i * 500)); // Delay tăng dần cho từng trận
+                }, 1000 + (i * 500)); 
             });
 
         } catch (e) { 
             console.error("Lỗi tải Sheet:", e); 
-            document.getElementById("ai-app-container").innerHTML = "<p style='color:#ef4444; text-align:center'>Lỗi kết nối dữ liệu! Vui lòng thử lại.</p>";
         }
     }
 
