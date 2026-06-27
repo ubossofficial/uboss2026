@@ -14,6 +14,207 @@
     <!-- 4. Thông tin SEO -->
     <meta name="description" content="UBOSS – Nhà cái trực tuyến hàng đầu 2026, được cấp phép CURACAO. Trải nghiệm casino, thể thao, slot, đá gà và nhận thưởng USDT cực hấp dẫn cho tân thủ.">
     <style>
+        
+* { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #0b1120;
+            color: #f8fafc;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column; /* Đổi thành xếp dọc để chứa tiêu đề */
+            align-items: center;
+        }
+
+        /* TIÊU ĐỀ CHUNG TOÀN SECTION */
+        .section-title {
+            text-align: center;
+            color: #00e5ff;
+            font-size: 1.6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Lớp bọc ngoài chứa viền chạy */
+        .ai-card {
+            position: relative;
+            padding: 2px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 229, 255, 0.15);
+        }
+
+        /* Hiệu ứng viền xoay */
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, #00e5ff);
+            animation: animateBorder 3s linear infinite;
+        }
+
+        @keyframes animateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Lớp nền bên trong */
+        .card-inner {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 15px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+        }
+
+        /* Header trận đấu */
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #1e293b;
+        }
+        .team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 35%;
+        }
+        .team img {
+            width: 45px; height: 30px;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        .team span { font-size: 0.95rem; font-weight: 600; text-align: center; text-transform: uppercase; }
+        
+        .score-board { width: 30%; text-align: center; }
+        .score-board .vs { font-size: 0.85rem; color: #64748b; font-weight: bold; text-transform: uppercase; }
+        .score-board .score { font-size: 1.6rem; font-weight: 800; color: #00e5ff; display: none; }
+
+        /* Đếm ngược */
+        .timer-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #10b981;
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .timer-box .live-dot {
+            width: 8px; height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* Thông số trận đấu */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        .stat-item {
+            background: #0f172a;
+            padding: 8px 4px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #334155;
+        }
+        .stat-item .label { display: block; font-size: 0.65rem; color: #94a3b8; margin-bottom: 3px; text-transform: uppercase;}
+        .stat-item .value { font-size: 0.85rem; font-weight: 700; color: #f1f5f9; text-transform: uppercase; }
+        
+        /* Màu sắc linh hoạt */
+        .color-thang { color: #00e5ff !important; } 
+        .color-hoa { color: #f59e0b !important; }   
+        .color-tai { color: #ef4444 !important; }   
+        .color-xiu { color: #10b981 !important; }   
+        .color-tutin { color: #00e5ff !important; } 
+
+        /* Nút kêu gọi vào Telegram (Đã được dời lên trên) */
+        .telegram-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0088cc 0%, #00e5ff 100%);
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 5px;
+            margin-bottom: 5px; /* Thêm khoảng cách với phần AI bên dưới */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 229, 255, 0.2);
+        }
+        .telegram-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 229, 255, 0.4);
+        }
+        .telegram-cta .cta-main-text {
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .telegram-cta .cta-sub-text {
+            color: #0b1120;
+            background: #ffffff;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-top: 6px;
+            text-transform: uppercase;
+        }
+
+        /* Phân tích AI */
+        .ai-analysis {
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px dashed #00e5ff;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            min-height: 70px;
+        }
+        .ai-title { 
+            font-size: 0.75rem; color: #00e5ff; font-weight: 600; margin-bottom: 5px; 
+            display: flex; align-items: center; gap: 5px; text-transform: uppercase;
+        }
+
+
+
         /* =========================================
            HỆ MÀU SẮC CHUNG 
            ========================================= */
@@ -345,6 +546,17 @@
                 height: 52px !important; 
                 font-size: 26px !important; 
             }
+
+
+            .section-title { font-size: 1.3rem; }
+            .match-grid { grid-template-columns: 1fr; }
+            .card-inner { padding: 12px; gap: 10px; }
+            .ai-analysis {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
             
             /* Chia 2 cột đều nhau trên Mobile */
             .grid-5-items { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -433,6 +645,11 @@
             <a href="https://97y.me/6Xr2Q" class="btn-pulse">Tham gia dự đoán WC ngay</a>
         </section>
 
+<!-- Tiêu đề chung của phần -->
+    <h2 class="section-title">⚡ Phân tích trận đấu AI mỗi ngày ⚡</h2>
+
+    <div id="app" class="match-grid"></div>
+        
         <section class="image-grid-section">
             <div class="grid-5-items">
                 <div class="grid-item"><img src="quangcao (1).webp" alt="Sảnh trò chơi hấp dẫn tại UBOSS"></div>
@@ -734,6 +951,154 @@
     </footer>
 
     <script>
+// 1. DÁN LINK CSV CỦA ANH VÀO ĐÂY (NẰM TRONG CẶP NGOẶC KÉP)
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS7Dd6Wgcqqg44anXyCnAb0b_tHnJd8Jw6fjFXCUS270FOg2_JZZ5j46tcCJvnSlRtxNQOXGda_5-17/pub?output=csv";
+    
+    // 2. DÁN LINK TELEGRAM CỦA ANH VÀO ĐÂY
+    const TELE_LINK = "https://t.me/+bZchBFF2xzo1OWNl";
+
+    let sheetDataArray = [];
+
+    // Hàm đọc file CSV chuẩn xác
+    function parseCSV(str) {
+        const arr = []; let quote = false; let row = 0, col = 0;
+        for (let c = 0; c < str.length; c++) {
+            let cc = str[c], nc = str[c+1];
+            arr[row] = arr[row] || []; arr[row][col] = arr[row][col] || '';
+            if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+            if (cc == '"') { quote = !quote; continue; }
+            if (cc == ',' && !quote) { ++col; continue; }
+            if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+            if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+            if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+            arr[row][col] += cc;
+        }
+        return arr;
+    }
+
+    // Hàm gọi dữ liệu từ CSV
+    async function fetchDataFromCSV() {
+        try {
+            const response = await fetch(CSV_URL);
+            const csvText = await response.text();
+            const rows = parseCSV(csvText.trim());
+            const headers = rows[0].map(h => h.trim());
+            
+            const data = rows.slice(1).map(row => {
+                let obj = {};
+                row.forEach((val, i) => { if(headers[i]) obj[headers[i]] = val.trim(); });
+                return obj;
+            });
+
+            sheetDataArray = data.map((item, index) => ({
+                id: index + 1,
+                gio: item["Giờ"], doi1: item["Đội 1"], maCo1: item["Mã cờ 1"],
+                doi2: item["Đội 2"], maCo2: item["Mã cờ 2"], duDoan: item["Dự đoán"],
+                tiSo: item["Tỉ số"], cuocChap: item["Cược chấp"], taiXiu: item["Tài Xỉu"],
+                tuTin: item["Tự tin"], phanTichAI: item["Phân tích AI"]
+            }));
+
+            renderMatches();
+            startTimers();
+            startAIEffects();
+
+        } catch (error) {
+            console.error("Lỗi:", error);
+            document.getElementById("ai-app-container").innerHTML = "<p style='color:#ef4444; text-align:center'>Lỗi tải dữ liệu. Vui lòng kiểm tra link CSV.</p>";
+        }
+    }
+
+    // Hàm render HTML
+    function renderMatches() {
+        const app = document.getElementById("ai-app-container");
+        if (!app) return;
+        let htmlContent = '';
+
+        sheetDataArray.forEach(match => {
+            let duDoanClass = 'color-thang'; 
+            const duDoanText = (match.duDoan || "").toUpperCase();
+            if (duDoanText.includes('HÒA') || duDoanText.includes('HOA')) duDoanClass = 'color-hoa';
+
+            let taiXiuClass = '';
+            const txText = (match.taiXiu || "").toUpperCase();
+            if (txText.includes('TÀI') || txText.includes('TAI')) taiXiuClass = 'color-tai';
+            else if (txText.includes('XỈU') || txText.includes('XIU')) taiXiuClass = 'color-xiu';
+
+            htmlContent += `
+                <div class="ai-card" id="card-${match.id}">
+                    <div class="card-inner">
+                        <div class="timer-box"><div class="live-dot"></div><span id="timer-${match.id}">--:--:--:--</span></div>
+                        <div class="match-header">
+                            <div class="team"><img src="https://flagcdn.com/w80/${(match.maCo1 || "").toLowerCase()}.png"><span>${match.doi1}</span></div>
+                            <div class="score-board"><div id="vs-${match.id}" class="vs">VS</div><div id="score-${match.id}" class="score">${match.tiSo}</div></div>
+                            <div class="team"><img src="https://flagcdn.com/w80/${(match.maCo2 || "").toLowerCase()}.png"><span>${match.doi2}</span></div>
+                        </div>
+                        <div class="stats">
+                            <div class="stat-item"><span class="label">Dự đoán</span><span class="value ${duDoanClass}">${match.duDoan}</span></div>
+                            <div class="stat-item"><span class="label">Chấp</span><span class="value">${match.cuocChap}</span></div>
+                            <div class="stat-item"><span class="label">Tài Xỉu</span><span class="value ${taiXiuClass}">${match.taiXiu}</span></div>
+                            <div class="stat-item"><span class="label">Tự tin</span><span class="value color-tutin">${match.tuTin}</span></div>
+                        </div>
+                        <a href="${TELE_LINK}" target="_blank" class="telegram-cta">
+                            <span class="cta-main-text">✈️ Tham gia Telegram nhận kèo miễn phí mỗi ngày</span>
+                            <span class="cta-sub-text">Bấm vào để tham gia</span>
+                        </a>
+                        <div class="ai-analysis">
+                            <div class="ai-title">⚡ SCANNING DATA...</div>
+                            <div id="ai-text-${match.id}">Đang tổng hợp dữ liệu...</div>
+                        </div>
+                    </div>
+                </div>`;
+        });
+        app.innerHTML = htmlContent;
+    }
+
+    // Đếm ngược
+    function startTimers() {
+        setInterval(() => {
+            const now = new Date().getTime();
+            sheetDataArray.forEach(match => {
+                const matchTime = new Date(match.gio).getTime();
+                const timerEl = document.getElementById(`timer-${match.id}`);
+                if(!timerEl) return;
+                
+                const distance = matchTime - now;
+                if (distance < 0) {
+                    timerEl.innerHTML = "ĐANG ĐÁ"; timerEl.style.color = "#ef4444";
+                } else {
+                    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((distance % (1000 * 60)) / 1000);
+                    timerEl.innerText = d > 0 ? `${d} Ngày ${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}` : `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+                }
+            });
+        }, 1000);
+    }
+
+    // Hiệu ứng chữ AI
+    function startAIEffects() {
+        sheetDataArray.forEach((match, index) => {
+            setTimeout(() => {
+                const vsEl = document.getElementById(`vs-${match.id}`);
+                const scoreEl = document.getElementById(`score-${match.id}`);
+                const textEl = document.getElementById(`ai-text-${match.id}`);
+                if (vsEl) vsEl.style.display = "none";
+                if (scoreEl) scoreEl.style.display = "block";
+                if (textEl) typeWriterEffect(match.phanTichAI || "", textEl, 25);
+            }, 1500 + (index * 500)); 
+        });
+    }
+
+    function typeWriterEffect(text, element, speed) {
+        let i = 0; element.innerHTML = "";
+        function type() { if (i < text.length) { element.innerHTML += text.charAt(i); i++; setTimeout(type, speed); } }
+        type();
+    }
+
+    // Gọi hàm chạy ngay lập tức
+    fetchDataFromCSV();
+        
         const menuBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar-menu');
         menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); sidebar.classList.toggle('active'); });
