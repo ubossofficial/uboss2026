@@ -807,16 +807,33 @@
 
     <script> 
 
+// 1. CẤU HÌNH
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQj3fhx8ExjF9YQ9W8MYvP5vC2lQeDRwte34vCpUdDezj5FPpS2Zhr1TcIlfKv52mTg8MoG5FNSfV9x/pub?output=csv";
+    const TELE_LINK = "https://t.me/+bZchBFF2xzo1OWNl";
+    let sheetDataArray = [];
 
-    /* WC */
-        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQj3fhx8ExjF9YQ9W8MYvP5vC2lQeDRwte34vCpUdDezj5FPpS2Zhr1TcIlfKv52mTg8MoG5FNSfV9x/pub?output=csv";
-    const TELE_LINK = "https://t.me/link_cua_anh";
+    // 2. HÀM ĐỌC CSV
+    function parseCSV(str) {
+        const arr = []; let quote = false; let row = 0, col = 0;
+        for (let c = 0; c < str.length; c++) {
+            let cc = str[c], nc = str[c+1];
+            arr[row] = arr[row] || []; arr[row][col] = arr[row][col] || '';
+            if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+            if (cc == '"') { quote = !quote; continue; }
+            if (cc == ',' && !quote) { ++col; continue; }
+            if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+            if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+            if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+            arr[row][col] += cc;
+        }
+        return arr;
+    }
 
     async function initAI() {
         try {
             const response = await fetch(CSV_URL);
             const text = await response.text();
-            const rows = text.trim().split('\n').map(row => row.split(','));
+            const rows = parseCSV(text.trim());
             const headers = rows[0].map(h => h.trim());
             const data = rows.slice(1).map(row => {
                 let obj = {};
@@ -825,6 +842,7 @@
             });
 
             const container = document.getElementById("ai-app-container");
+            if(!container) return;
             container.innerHTML = "";
 
             data.forEach((match, index) => {
@@ -859,11 +877,12 @@
                 `;
             });
 
-            // Hiệu ứng chữ
             data.forEach((match, i) => {
                 setTimeout(() => {
-                    document.getElementById(`vs-${i}`).style.display = "none";
-                    document.getElementById(`score-${i}`).style.display = "block";
+                    const vsEl = document.getElementById(`vs-${i}`);
+                    const scoreEl = document.getElementById(`score-${i}`);
+                    if(vsEl) vsEl.style.display = "none";
+                    if(scoreEl) scoreEl.style.display = "block";
                     let el = document.getElementById(`ai-text-${i}`);
                     let str = match["Phân tích AI"] || "";
                     let char = 0;
@@ -875,11 +894,35 @@
                     }, 20);
                 }, 1000 + (i * 500));
             });
-
         } catch (e) { console.log(e); }
     }
-    initAI();
-        */==================================================*/
+
+    // 3. CÁC HÀM KHÁC (MENU, SLIDER, FAQ)
+    document.addEventListener("DOMContentLoaded", function() {
+        initAI(); // Chạy AI
+
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar-menu');
+        menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); sidebar.classList.toggle('active'); });
+
+        const sliderWrapper = document.getElementById('slider-wrapper');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0; const totalSlides = 4;
+        function updateSlider() { sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`; dots.forEach(dot => dot.classList.remove('active')); dots[currentSlide].classList.add('active'); }
+        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; updateSlider(); }
+        setInterval(nextSlide, 4000);
+
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(i => { i.classList.remove('active'); i.querySelector('.faq-answer').style.maxHeight = null; });
+                if (!isActive) { item.classList.add('active'); item.querySelector('.faq-answer').style.maxHeight = item.querySelector('.faq-answer').scrollHeight + "px"; }
+            });
+        });
+    });
+
+        
         const menuBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar-menu');
         menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); sidebar.classList.toggle('active'); });
