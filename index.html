@@ -14,6 +14,61 @@
     <!-- 4. Thông tin SEO -->
     <meta name="description" content="UBOSS – Nhà cái trực tuyến hàng đầu 2026, được cấp phép CURACAO. Trải nghiệm casino, thể thao, slot, đá gà và nhận thưởng USDT cực hấp dẫn cho tân thủ.">
     <style>
+
+.ai-worldcup-section { width: 100%; padding: 10px 5px; box-sizing: border-box; overflow: hidden; }
+    .ai-worldcup-section .section-title { 
+        text-align: center; color: #00e5ff; font-size: 1.4rem; font-weight: 900; 
+        text-transform: uppercase; margin-bottom: 20px; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); 
+    }
+    .ai-worldcup-section .match-grid { 
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+        gap: 10px; width: 100%; max-width: 1200px; margin: 0 auto; 
+    }
+    .ai-worldcup-section .ai-card { 
+        position: relative; padding: 2px; border-radius: 12px; overflow: hidden; 
+        background: #1e293b; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    /* Hiệu ứng viền neon */
+    .ai-worldcup-section .ai-card::before {
+        content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+        background: conic-gradient(transparent, transparent, transparent, #00e5ff);
+        animation: animateBorder 3s linear infinite;
+    }
+    @keyframes animateBorder { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    
+    .ai-worldcup-section .card-inner { 
+        background: #1e293b; border-radius: 10px; padding: 10px; position: relative; z-index: 1;
+        display: flex; flex-direction: column; gap: 8px;
+    }
+    .ai-worldcup-section .match-header { display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 5px; border-radius: 6px; }
+    .ai-worldcup-section .team { display: flex; flex-direction: column; align-items: center; width: 35%; }
+    .ai-worldcup-section .team img { width: 35px; height: 22px; border-radius: 2px; margin-bottom: 3px; }
+    .ai-worldcup-section .team span { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .ai-worldcup-section .score { font-size: 1.1rem; font-weight: 900; color: #00e5ff; display: none; }
+    .ai-worldcup-section .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
+    .ai-worldcup-section .stat-item { background: #0f172a; padding: 5px 2px; border-radius: 4px; text-align: center; }
+    .ai-worldcup-section .label { display: block; font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; }
+    .ai-worldcup-section .value { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    
+    /* Telegram CTA */
+    .ai-worldcup-section .telegram-cta { 
+        background: linear-gradient(135deg, #0088cc, #00e5ff); padding: 8px; border-radius: 6px; 
+        text-align: center; text-decoration: none; display: block; margin: 5px 0;
+    }
+    .ai-worldcup-section .cta-main-text { color: #fff; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+    .ai-worldcup-section .cta-sub-text { color: #000; background: #fff; font-size: 0.6rem; font-weight: 800; padding: 1px 5px; border-radius: 10px; display: block; margin-top: 3px; }
+    
+    /* AI Phân tích */
+    .ai-worldcup-section .ai-analysis { 
+        background: rgba(0,0,0,0.3); border: 1px dashed #00e5ff; padding: 8px; 
+        font-size: 0.7rem; color: #cbd5e1; border-radius: 6px; 
+    }
+    .ai-worldcup-section .ai-title { color: #00e5ff; font-weight: 700; margin-bottom: 3px; text-transform: uppercase; font-size: 0.65rem; }
+
+    /* Màu sắc */
+    .color-thang { color: #00e5ff; } .color-hoa { color: #f59e0b; }
+    .color-tai { color: #ef4444; } .color-xiu { color: #10b981; }
+        
         /* =========================================
            HỆ MÀU SẮC CHUNG 
            ========================================= */
@@ -442,10 +497,12 @@
             <a href="https://97y.me/6Xr2Q" class="btn-pulse">Tham gia dự đoán WC ngay</a>
         </section>
 
-<h2 class="section-title">⚡ Phân tích trận đấu AI mỗi ngày ⚡</h2>
-
-<div id="ai-app-container" class="match-grid">
-    <p style="text-align:center; color:#00e5ff; width:100%;">Đang phân tích dữ liệu...</p>
+<!-- DÁN ĐOẠN NÀY VÀO TRONG THẺ <BODY> NƠI ANH MUỐN HIỂN THỊ -->
+<div class="ai-worldcup-section">
+    <h2 class="section-title">⚡ PHÂN TÍCH TRẬN ĐẤU AI MỖI NGÀY ⚡</h2>
+    <div id="ai-app-container" class="match-grid">
+        <p style="text-align:center; color:#00e5ff; padding: 20px;">ĐANG KHỞI TẠO AI...</p>
+    </div>
 </div>
         
         <section class="image-grid-section">
@@ -749,6 +806,80 @@
     </footer>
 
     <script> 
+
+
+    /* WC */
+        const CSV_URL = "DÁN_LINK_CSV_CỦA_ANH_VÀO_ĐÂY";
+    const TELE_LINK = "https://t.me/link_cua_anh";
+
+    async function initAI() {
+        try {
+            const response = await fetch(CSV_URL);
+            const text = await response.text();
+            const rows = text.trim().split('\n').map(row => row.split(','));
+            const headers = rows[0].map(h => h.trim());
+            const data = rows.slice(1).map(row => {
+                let obj = {};
+                row.forEach((val, i) => obj[headers[i]] = val ? val.trim() : "");
+                return obj;
+            });
+
+            const container = document.getElementById("ai-app-container");
+            container.innerHTML = "";
+
+            data.forEach((match, index) => {
+                let dClass = match["Dự đoán"]?.toUpperCase().includes("HÒA") ? "color-hoa" : "color-thang";
+                let tClass = match["Tài Xỉu"]?.toUpperCase().includes("TÀI") ? "color-tai" : "color-xiu";
+
+                container.innerHTML += `
+                    <div class="ai-card">
+                        <div class="card-inner">
+                            <div class="timer-box"><span id="timer-${index}">00:00:00</span></div>
+                            <div class="match-header">
+                                <div class="team"><img src="https://flagcdn.com/w40/${match["Mã cờ 1"]?.toLowerCase()}.png"><span>${match["Đội 1"]}</span></div>
+                                <div class="score-board"><div id="vs-${index}">VS</div><div id="score-${index}" class="score">${match["Tỉ số"]}</div></div>
+                                <div class="team"><img src="https://flagcdn.com/w40/${match["Mã cờ 2"]?.toLowerCase()}.png"><span>${match["Đội 2"]}</span></div>
+                            </div>
+                            <div class="stats">
+                                <div class="stat-item"><span class="label">Dự đoán</span><span class="value ${dClass}">${match["Dự đoán"]}</span></div>
+                                <div class="stat-item"><span class="label">Chấp</span><span class="value">${match["Cược chấp"]}</span></div>
+                                <div class="stat-item"><span class="label">Tài Xỉu</span><span class="value ${tClass}">${match["Tài Xỉu"]}</span></div>
+                                <div class="stat-item"><span class="label">Tự tin</span><span class="value">${match["Tự tin"]}</span></div>
+                            </div>
+                            <a href="${TELE_LINK}" class="telegram-cta">
+                                <span class="cta-main-text">✈️ THAM GIA TELE NHẬN KÈO</span>
+                                <span class="cta-sub-text">BẤM VÀO ĐỂ THAM GIA</span>
+                            </a>
+                            <div class="ai-analysis">
+                                <div class="ai-title">⚡ PHÂN TÍCH AI:</div>
+                                <div id="ai-text-${index}">Đang tổng hợp...</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Hiệu ứng chữ
+            data.forEach((match, i) => {
+                setTimeout(() => {
+                    document.getElementById(`vs-${i}`).style.display = "none";
+                    document.getElementById(`score-${i}`).style.display = "block";
+                    let el = document.getElementById(`ai-text-${i}`);
+                    let str = match["Phân tích AI"] || "";
+                    let char = 0;
+                    el.innerHTML = "";
+                    let timer = setInterval(() => {
+                        el.innerHTML += str.charAt(char);
+                        char++;
+                        if (char >= str.length) clearInterval(timer);
+                    }, 20);
+                }, 1000 + (i * 500));
+            });
+
+        } catch (e) { console.log(e); }
+    }
+    initAI();
+        */==================================================*/
         const menuBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar-menu');
         menuBtn.addEventListener('click', () => { menuBtn.classList.toggle('open'); sidebar.classList.toggle('active'); });
