@@ -196,18 +196,22 @@
             margin-top: 6px;
             text-transform: uppercase;
         }
-
-        /* Phân tích AI */
-        .ai-analysis {
-            background: rgba(0, 229, 255, 0.05);
-            border: 1px dashed #00e5ff;
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            line-height: 1.5;
-            min-height: 70px;
-        }
+            /* Phân tích AI - Thay thế đoạn cũ bằng đoạn này */
+            .ai-analysis {
+                background: rgba(0, 229, 255, 0.05);
+                border: 1px dashed #00e5ff;
+                border-radius: 6px;
+                padding: 10px;
+                font-size: 0.85rem;
+                color: #cbd5e1;
+                line-height: 1.5;
+                min-height: 70px;
+                
+                /* 3 dòng này giúp chặn dãn màn hình trên mọi thiết bị */
+                max-width: 100%; 
+                word-wrap: break-word;     
+                overflow-wrap: break-word; 
+            }
         .ai-title { 
             font-size: 0.75rem; color: #00e5ff; font-weight: 600; margin-bottom: 5px; 
             display: flex; align-items: center; gap: 5px; text-transform: uppercase;
