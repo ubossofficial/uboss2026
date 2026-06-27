@@ -15,52 +15,74 @@
     <meta name="description" content="UBOSS – Nhà cái trực tuyến hàng đầu 2026, được cấp phép CURACAO. Trải nghiệm casino, thể thao, slot, đá gà và nhận thưởng USDT cực hấp dẫn cho tân thủ.">
     <style>
 
-.ai-worldcup-section { width: 100%; box-sizing: border-box; overflow: hidden; padding: 10px; }
+.ai-worldcup-section { width: 100%; box-sizing: border-box; overflow: hidden; padding: 10px 0; }
     
     /* Tiêu đề */
-    .section-title { text-align: center; color: #00e5ff; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); }
+    .section-title { text-align: center; color: #00e5ff; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); }
     
-    /* Nút Telegram duy nhất */
+    /* Nút Telegram duy nhất (nằm ngay dưới tiêu đề) */
     .telegram-cta-single { 
-        display: block; width: 90%; max-width: 400px; margin: 10px auto 20px auto;
+        display: block; width: 90%; max-width: 400px; margin: 0 auto 25px auto;
         background: linear-gradient(135deg, #0088cc, #00e5ff); padding: 12px; border-radius: 8px; 
         text-align: center; text-decoration: none; color: #fff; font-weight: 800; text-transform: uppercase; font-size: 0.9rem;
-        box-shadow: 0 4px 10px rgba(0, 229, 255, 0.3);
+        box-shadow: 0 4px 10px rgba(0, 229, 255, 0.3); transition: transform 0.2s ease;
+    }
+    .telegram-cta-single:hover { transform: scale(1.02); }
+
+    /* Khung xếp 1 cột dọc trên Mobile */
+    .match-grid { 
+        display: grid; 
+        grid-template-columns: 1fr; /* Ép cứng 1 cột dọc từ trên xuống */
+        gap: 20px; 
+        width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 10px;
     }
 
-    /* Khung cuộn ngang */
-    .match-scroll-container { 
-        display: flex; gap: 12px; overflow-x: auto; padding: 10px 5px; 
-        scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    /* Nếu xem trên Máy tính/Tablet thì tự chia nhiều cột cho đỡ trống */
+    @media (min-width: 768px) {
+        .match-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
     }
-    /* Ẩn thanh cuộn */
-    .match-scroll-container::-webkit-scrollbar { display: none; }
 
     /* Thẻ trận đấu */
     .ai-card { 
-        min-width: 280px; scroll-snap-align: start; position: relative; padding: 2px; border-radius: 12px; 
-        background: #1e293b; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        position: relative; padding: 2px; border-radius: 12px; 
+        background: #1e293b; box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
-    .card-inner { background: #1e293b; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+    .ai-card::before {
+        content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+        background: conic-gradient(transparent, transparent, transparent, #00e5ff);
+        animation: animateBorder 3s linear infinite;
+    }
+    @keyframes animateBorder { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    
+    .card-inner { 
+        background: #1e293b; border-radius: 10px; padding: 15px; 
+        display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 1;
+    }
     
     /* Thông tin trận */
-    .match-header { display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 8px; border-radius: 6px; }
+    .match-header { display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 12px; border-radius: 8px; border: 1px solid #334155; }
     .team { display: flex; flex-direction: column; align-items: center; width: 35%; }
-    .team img { width: 35px; height: 22px; margin-bottom: 3px; }
-    .team span { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
-    .score { font-size: 1.2rem; font-weight: 900; color: #00e5ff; display: none; }
+    .team img { width: 50px; height: 35px; margin-bottom: 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.5); object-fit: cover;}
+    .team span { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; text-align: center; }
+    .score-board { text-align: center; }
+    .vs { font-size: 0.9rem; color: #64748b; font-weight: bold; }
+    .score { font-size: 1.6rem; font-weight: 900; color: #00e5ff; display: none; margin: 0; line-height: 1; }
     
     /* Đếm ngược */
-    .timer-box { font-size: 0.8rem; color: #10b981; font-weight: 600; text-align: center; margin-bottom: 5px; }
+    .timer-box { font-size: 0.85rem; color: #10b981; font-weight: 700; text-align: center; background: rgba(16, 185, 129, 0.1); padding: 8px; border-radius: 6px; letter-spacing: 0.5px;}
     
-    /* Stats */
-    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
-    .stat-item { background: #0f172a; padding: 6px 2px; border-radius: 4px; text-align: center; }
-    .label { display: block; font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; }
-    .value { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+    /* Thông số (Chấp, Tài Xỉu...) */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    @media (max-width: 480px) { .stats { grid-template-columns: repeat(2, 1fr); } } /* Điện thoại tự xếp 2 hàng 2 cột cho dễ nhìn */
+    .stat-item { background: #0f172a; padding: 8px 4px; border-radius: 6px; text-align: center; border: 1px solid #334155; }
+    .label { display: block; font-size: 0.65rem; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px;}
+    .value { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
     
-    .ai-analysis { background: rgba(0,0,0,0.3); border: 1px dashed #00e5ff; padding: 8px; font-size: 0.75rem; color: #cbd5e1; border-radius: 6px; margin-top: 5px; }
-    .ai-title { color: #00e5ff; font-weight: 700; margin-bottom: 3px; text-transform: uppercase; font-size: 0.7rem; }
+    .ai-analysis { background: rgba(0, 229, 255, 0.05); border: 1px dashed #00e5ff; padding: 12px; font-size: 0.85rem; color: #cbd5e1; border-radius: 6px; line-height: 1.5; min-height: 70px;}
+    .ai-title { color: #00e5ff; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; font-size: 0.75rem; }
+
+    .color-thang { color: #00e5ff !important; } .color-hoa { color: #f59e0b !important; }
+    .color-tai { color: #ef4444 !important; } .color-xiu { color: #10b981 !important; }
         
         /* =========================================
            HỆ MÀU SẮC CHUNG 
@@ -493,9 +515,10 @@
 <!-- DÁN ĐOẠN NÀY VÀO TRONG THẺ <BODY> NƠI ANH MUỐN HIỂN THỊ -->
 <div class="ai-worldcup-section">
     <h2 class="section-title">⚡ PHÂN TÍCH TRẬN ĐẤU AI MỖI NGÀY ⚡</h2>
-    <a href="https://t.me/link_cua_anh" class="telegram-cta-single">✈️ THAM GIA TELEGRAM NHẬN KÈO MIỄN PHÍ</a>
-    <div id="ai-app-container" class="match-scroll-container">
-        <p style="text-align:center; color:#00e5ff; width:100%;">ĐANG KHỞI TẠO DỮ LIỆU...</p>
+    <a href="https://t.me/link_cua_anh_vao_day" class="telegram-cta-single">✈️ THAM GIA TELEGRAM NHẬN KÈO MIỄN PHÍ</a>
+    
+    <div id="ai-app-container" class="match-grid">
+        <p style="text-align:center; color:#00e5ff; width:100%;">ĐANG TẢI DỮ LIỆU TỪ HỆ THỐNG AI...</p>
     </div>
 </div>
         
@@ -801,20 +824,42 @@
 
     <script> 
 
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQj3fhx8ExjF9YQ9W8MYvP5vC2lQeDRwte34vCpUdDezj5FPpS2Zhr1TcIlfKv52mTg8MoG5FNSfV9x/pub?output=csv";
+// Link CSV của bạn
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQj3fhx8ExjF9YQ9W8MYvP5vC2lQeDRwte34vCpUdDezj5FPpS2Zhr1TcIlfKv52mTg8MoG5FNSfV9x/pub?output=csv";
+
+    // Hàm đọc file CSV an toàn (có hỗ trợ dấu phẩy trong văn bản)
+    function parseCSV(str) {
+        const arr = []; let quote = false; let row = 0, col = 0;
+        for (let c = 0; c < str.length; c++) {
+            let cc = str[c], nc = str[c+1];
+            arr[row] = arr[row] || []; arr[row][col] = arr[row][col] || '';
+            if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+            if (cc == '"') { quote = !quote; continue; }
+            if (cc == ',' && !quote) { ++col; continue; }
+            if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+            if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+            if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+            arr[row][col] += cc;
+        }
+        return arr;
+    }
 
     async function loadData() {
         try {
             const res = await fetch(CSV_URL);
             const text = await res.text();
-            const rows = text.trim().split('\n').map(r => r.split(','));
+            
+            // Xử lý CSV
+            const rows = parseCSV(text.trim());
             const headers = rows[0].map(h => h.trim());
             const data = rows.slice(1).map(r => {
-                let obj = {}; r.forEach((v, i) => obj[headers[i]] = v ? v.trim() : "");
+                let obj = {}; 
+                r.forEach((v, i) => { if(headers[i]) obj[headers[i]] = v ? v.trim() : ""; });
                 return obj;
             });
 
             const container = document.getElementById("ai-app-container");
+            if(!container) return;
             container.innerHTML = "";
 
             data.forEach((match, index) => {
@@ -824,20 +869,20 @@ const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQj3fhx8ExjF9YQ
                 container.innerHTML += `
                     <div class="ai-card">
                         <div class="card-inner">
-                            <div class="timer-box">TRẬN ĐẤU BẮT ĐẦU SAU:<br><span id="timer-${index}">--:--:--</span></div>
+                            <div class="timer-box">TRẬN ĐẤU SẼ BẮT ĐẦU SAU: <span id="timer-${index}" style="color:#00e5ff;">--:--:--</span></div>
                             <div class="match-header">
-                                <div class="team"><img src="https://flagcdn.com/w40/${match["Mã cờ 1"]?.toLowerCase()}.png"><span>${match["Đội 1"]}</span></div>
-                                <div class="score-board"><div id="vs-${index}">VS</div><div id="score-${index}" class="score">${match["Tỉ số"]}</div></div>
-                                <div class="team"><img src="https://flagcdn.com/w40/${match["Mã cờ 2"]?.toLowerCase()}.png"><span>${match["Đội 2"]}</span></div>
+                                <div class="team"><img src="https://flagcdn.com/w80/${match["Mã cờ 1"]?.toLowerCase()}.png"><span>${match["Đội 1"]}</span></div>
+                                <div class="score-board"><div id="vs-${index}" class="vs">VS</div><div id="score-${index}" class="score">${match["Tỉ số"]}</div></div>
+                                <div class="team"><img src="https://flagcdn.com/w80/${match["Mã cờ 2"]?.toLowerCase()}.png"><span>${match["Đội 2"]}</span></div>
                             </div>
                             <div class="stats">
                                 <div class="stat-item"><span class="label">Dự đoán</span><span class="value ${dClass}">${match["Dự đoán"]}</span></div>
                                 <div class="stat-item"><span class="label">Chấp</span><span class="value">${match["Cược chấp"]}</span></div>
                                 <div class="stat-item"><span class="label">Tài Xỉu</span><span class="value ${tClass}">${match["Tài Xỉu"]}</span></div>
-                                <div class="stat-item"><span class="label">Tự tin</span><span class="value">${match["Tự tin"]}</span></div>
+                                <div class="stat-item"><span class="label">Tự tin</span><span class="value color-thang">${match["Tự tin"]}</span></div>
                             </div>
                             <div class="ai-analysis">
-                                <div class="ai-title">⚡ PHÂN TÍCH AI:</div>
+                                <div class="ai-title">⚡ SCANNING DATA...</div>
                                 <div id="ai-text-${index}">Đang tổng hợp...</div>
                             </div>
                         </div>
@@ -845,40 +890,65 @@ const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQj3fhx8ExjF9YQ
                 `;
             });
 
-            // Timer & Animation logic
+            // Logic đếm ngược thời gian thực (Cập nhật mỗi 1 giây)
             setInterval(() => {
                 data.forEach((match, i) => {
                     const timerEl = document.getElementById(`timer-${i}`);
+                    if(!timerEl) return;
+
                     const target = new Date(match["Giờ"]).getTime();
                     const now = new Date().getTime();
                     const diff = target - now;
+
                     if (diff > 0) {
-                        const h = Math.floor(diff / 3600000);
+                        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / 3600000);
                         const m = Math.floor((diff % 3600000) / 60000);
                         const s = Math.floor((diff % 60000) / 1000);
-                        timerEl.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                        
+                        if (d > 0) {
+                            timerEl.innerText = `${d} NGÀY ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                        } else {
+                            timerEl.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                        }
                     } else {
                         timerEl.innerText = "ĐANG DIỄN RA";
+                        timerEl.style.color = "#ef4444"; // Đổi thành màu đỏ
                     }
                 });
             }, 1000);
 
+            // Hiệu ứng Typewriter gõ chữ AI
             data.forEach((match, i) => {
                 setTimeout(() => {
-                    document.getElementById(`vs-${i}`).style.display = "none";
-                    document.getElementById(`score-${i}`).style.display = "block";
+                    const vsEl = document.getElementById(`vs-${i}`);
+                    const scoreEl = document.getElementById(`score-${i}`);
+                    if(vsEl) vsEl.style.display = "none";
+                    if(scoreEl) scoreEl.style.display = "block";
+
                     let el = document.getElementById(`ai-text-${i}`);
                     let str = match["Phân tích AI"] || "";
-                    let char = 0; el.innerHTML = "";
-                    let timer = setInterval(() => {
-                        el.innerHTML += str.charAt(char); char++;
-                        if (char >= str.length) clearInterval(timer);
-                    }, 20);
-                }, 1000 + (i * 500));
+                    let char = 0; 
+                    if(el) {
+                        el.innerHTML = "";
+                        el.previousElementSibling.innerText = "⚡ PHÂN TÍCH AI:";
+                        let timer = setInterval(() => {
+                            el.innerHTML += str.charAt(char); 
+                            char++;
+                            if (char >= str.length) clearInterval(timer);
+                        }, 20);
+                    }
+                }, 1000 + (i * 500)); // Delay tăng dần cho từng trận
             });
-        } catch (e) { console.error(e); }
+
+        } catch (e) { 
+            console.error("Lỗi tải Sheet:", e); 
+            document.getElementById("ai-app-container").innerHTML = "<p style='color:#ef4444; text-align:center'>Lỗi kết nối dữ liệu! Vui lòng thử lại.</p>";
+        }
     }
-    loadData();
+
+    // Đảm bảo DOM load xong mới chạy mã
+    document.addEventListener("DOMContentLoaded", loadData);
         
         const menuBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar-menu');
